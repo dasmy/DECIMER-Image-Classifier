@@ -1,6 +1,15 @@
 #!/usr/bin/env python
 
 import setuptools
+import platform
+
+if (
+    platform.processor() == "arm" or platform.processor() == "i386"
+) and platform.system() == "Darwin":
+    tensorflow_os = ["tensorflow-macos>=2.10.0"]
+else:
+    tensorflow_os = ["tensorflow>=2.12.0"]
+
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
@@ -18,7 +27,13 @@ setuptools.setup(
     url="https://github.com/Iagea/DECIMER-Image-Classifier",
     packages=setuptools.find_packages(),
     license="MIT",
-    install_requires=["tensorflow>=2.12.0,<2.16.0", "ipyplot", "pillow>=8.2.0", "attrs>=19.2.0"],
+    install_requires=tensorflow_os
+    + [
+        "tf-keras~=2.16",
+        "ipyplot",
+        "pillow>=8.2.0",
+        "attrs>=19.2.0",
+    ],
     package_data={"decimer_image_classifier": ["*.*", "model/*.*", "model/*/*.*"]},
     classifiers=[
         "Programming Language :: Python :: 3",
