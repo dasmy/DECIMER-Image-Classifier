@@ -125,6 +125,5 @@ class DecimerImageClassifier:
             orig_img.load()
             img = Image.new("RGB", orig_img.size, (255, 255, 255))
             img.paste(orig_img, mask=orig_img.split()[3])
-            img.save("caffeine_mod.png")
         img = img.convert("L").convert("RGB")
         return img
